@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
 
-function App() {
-  const [count, setCount] = useState(0)
+import {
+  decrement,
+  increment,
+  reset,
+  incrementByAmount,
+} from "./features/counter/counterSlice";
 
+const App = () => {
+  const [amount, setAmount] = useState(0);
+
+  const count = useSelector((state) => state.counter.value);
+
+  const dispatch = useDispatch();
+
+  const handleIncrementClick = () => {
+    dispatch(increment());
+  };
+  const handleDecrementClick = () => {
+    dispatch(decrement());
+  };
+  const handleResetClick = () => {
+    dispatch(reset());
+  };
+  const handleAmountClick = () => {
+    dispatch(incrementByAmount(amount));
+  };
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <button onClick={handleIncrementClick}>+</button>
+      <p>Count : {count}</p>
+      <button onClick={handleDecrementClick}>-</button>
+      <br />
+      <br />
+      <button onClick={handleResetClick}>Reset</button>
+      <br />
+      <br />
+      <input
+        type="number"
+        placeholder="enter amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+      />
+      <button onClick={handleAmountClick}>inc by Amount</button>
+    </div>
+  );
+};
 
-export default App
+export default App;

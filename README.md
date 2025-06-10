@@ -5,4 +5,4 @@ what is Redux  ?
 . Redux is not an DATABASE
 . we call it State  Management.
 
-
+>> Redux use props to transfer data from one componnents to anaother
